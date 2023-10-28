@@ -30,6 +30,11 @@ spec:
         }
     }
     stages {
+        stage('git') {
+            checkout scmGit(
+                branches: [[name: 'master']],
+                userRemoteConfigs: [[url: 'https://github.com/gauravkr19/k8-tasks.git']])
+        }
         stage('shell') {
             steps {
                 withVault(configuration: [engineVersion: 2, skipSslVerification: true, timeout: 60, vaultCredentialId: 'df-vault', vaultUrl: 'http://vault.vault.svc.cluster.local:8200'], vaultSecrets: [[engineVersion: 2, path: 'df/dev/mobileapp/appEnv', secretValues: [[vaultKey: 'CLIENT_ID'], [vaultKey: 'CLIENT_SECRET']]]]) {
