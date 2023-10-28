@@ -31,9 +31,11 @@ spec:
     }
     stages {
         stage('git') {
+            steps {
             checkout scmGit(
                 branches: [[name: 'master']],
                 userRemoteConfigs: [[url: 'https://github.com/gauravkr19/k8-tasks.git']])
+            }
         }
         stage('shell') {
             steps {
